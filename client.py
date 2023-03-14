@@ -5,7 +5,7 @@ import logging
 HOST_IP_ADDRESS = socket.gethostbyname(socket.gethostname())
 PORT = 30002
 command = "movej([0, 0, 0, 0, 0, 0], a=1.0, v=1.0)\n"
-command2 = "get_controller_temp()\n"
+# command2 = "get_controller_temp()\n" # Not used.
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
     client_socket.settimeout(4)
@@ -20,8 +20,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
         logging.error("Could not connect to {}:{} Error: {}".format(HOST_IP_ADDRESS, PORT, e))
         sys.exit(1)
     try:
-        print("Sending command {} to UR3e simulator.".format(command2[:-1]))
-        client_socket.sendall(command2.encode())
+        print("Sending command {} to UR3e simulator.".format(command[:-1]))
+        client_socket.sendall(command.encode())
     except socket.error as e:
         logging.error("Sendall failed. Error: {}".format(e))
         sys.exit(1)
